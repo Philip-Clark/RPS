@@ -11,3 +11,8 @@ Work in progress.
 - [ ] Add sound?
 - [ ] A mode where you pre-plan all three moves?
 - [ ] online multiplayer?? Why not?
+
+
+# Try it!
+
+[Live Demo](https://philip-clark.github.io/RPS/)
