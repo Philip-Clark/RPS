@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles.css" />
+    <script type="text/javascript" src="renderFx.js"></script>
     <script src="script.js"></script>
 
     <title>RPS</title>
@@ -12,40 +13,61 @@
   <body>
     <div id="play-row">
       <div id="ai">
-        <h1 id="ai-score">0</h1>
         <div class="images" id="ai-images">
+          <img
+            src="assets/vfx/pound/frame_010.png"
+            width="500"
+            height="500"
+            alt="effects"
+            id="AiDust"
+            class="dust"
+          />
           <object
-            data="fistRed.svg"
-            type="image/svg+xml"
-            width="800"
-            class="fists fist rock"
-          ></object>
-          <object data="paperRed.svg" type="image/svg+xml" width="800" class="fists paper"></object>
-          <object
-            data="scissorsRed.svg"
-            type="image/svg+xml"
-            width="800"
-            class="fists scissor"
-          ></object>
-        </div>
-      </div>
-
-      <div id="player">
-        <div class="images" id="player-images">
-          <object
-            data="fistBlue.svg"
+            data="assets/fistRed.svg"
             type="image/svg+xml"
             width="800"
             class="fists fist rock"
           ></object>
           <object
-            data="paperBlue.svg"
+            data="assets/paperRed.svg"
             type="image/svg+xml"
             width="800"
             class="fists paper"
           ></object>
           <object
-            data="scissorsBlue.svg"
+            data="assets/scissorsRed.svg"
+            type="image/svg+xml"
+            width="800"
+            class="fists scissor"
+          ></object>
+        </div>
+        <h1 id="ai-score">0</h1>
+      </div>
+
+      <div id="player">
+        <div class="images" id="player-images">
+          <img
+            src="assets/vfx/pound/frame_010.png"
+            width="500"
+            height="500"
+            alt="effects"
+            class="dust"
+            id="playerDust"
+          />
+          <object
+            data="assets/fistBlue.svg"
+            type="image/svg+xml"
+            width="800"
+            class="fists fist rock"
+          ></object>
+          <object
+            data="assets/paperBlue.svg"
+            type="image/svg+xml"
+            width="800"
+            class="fists paper"
+          ></object>
+          <object
+            data="assets/scissorsBlue.svg"
             type="image/svg+xml"
             width="800"
             class="fists scissor"
@@ -56,13 +78,13 @@
     </div>
     <div id="buttonFlex">
       <button onclick="startRound('rock')" id="rockBttn" class="button">
-        <object data="fist.svg" type="image/svg+xml" width="100"></object>
+        <object data="assets/fist.svg" type="image/svg+xml" width="100"></object>
       </button>
       <button onclick="startRound('paper')" id="paperBttn" class="button">
-        <object data="paper.svg" type="image/svg+xml" width="100"></object>
+        <object data="assets/paper.svg" type="image/svg+xml" width="100"></object>
       </button>
       <button onclick="startRound('scissor')" id="scissorBttn" class="button">
-        <object data="scissors.svg" type="image/svg+xml" width="100"></object>
+        <object data="assets/scissors.svg" type="image/svg+xml" width="100"></object>
       </button>
     </div>
   </body>
