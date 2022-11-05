@@ -8,7 +8,7 @@ body {
   b */
 
   background-image: linear-gradient(#ffffff00, #141a1c),
-    url(`../RPS/assets/backgrounds/06_RaysBG.jpg`);
+    url(`assets/backgrounds/06_RaysBG.jpg`);
   background-size: cover;
   background-position: bottom;
 
