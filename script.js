@@ -5,6 +5,12 @@ const handMap = ['rock', 'paper', 'scissor'];
 let aiScore = 0;
 let playerScore = 0;
 
+const audios = [
+  new Audio('assets/sounds/punch1.mp3'),
+  new Audio('assets/sounds/punch2.mp3'),
+  new Audio('assets/sounds/punch3.mp3'),
+];
+
 function startRound(choice) {
   let buttons = [...document.getElementsByClassName('button')];
   console.log(buttons);
@@ -14,23 +20,26 @@ function startRound(choice) {
 
     setTimeout(() => {
       button.disabled = false;
+      resetHands();
     }, 1500);
   });
 
   poundCount = 3;
-  hideHand('ai', 'fists');
+  resetHands();
 
-  showHand('ai', 'fist');
+  playAnimation(choice);
+}
+
+function resetHands() {
+  hideHand('ai', 'fists');
   hideHand('ai', 'paper');
   hideHand('ai', 'scissor');
-
   hideHand('player', 'fists');
-
-  showHand('player', 'fist');
   hideHand('player', 'paper');
   hideHand('player', 'scissor');
 
-  playAnimation(choice);
+  showHand('player', 'fist');
+  showHand('ai', 'fist');
 }
 
 function playAnimation(choice) {
@@ -38,10 +47,16 @@ function playAnimation(choice) {
   let fistArray = [...document.getElementsByClassName('fists')];
 
   document.body.style.animation = 'screenShake 2000ms linear normal forwards';
+  let audio = audios[Math.floor(Math.random() * 3)];
 
   fistArray.forEach((element) => {
     element.style.animation = 'pound 2000ms linear normal forwards';
   });
+  renderFxToImg('playerDust', 300, 'assets/vfx/pound', 11, 'frame_0', 200);
+  renderFxToImg('AiDust', 300, 'assets/vfx/pound', 11, 'frame_0', 200);
+  audio.play();
+  audio.currentTime = 0;
+
   setTimeout(function () {
     fistArray.forEach((element) => {
       element.style.animation = '';
@@ -86,24 +101,29 @@ function showHand(parent, _choice) {
 }
 
 function determineWinner(aiNumber, playerNumber) {
-  if (wrapNumber(playerNumber) == aiNumber) {
-    playerScore++;
+  const resetTime = 900;
+  const delayAnimation = 200;
+  setTimeout(() => {
+    if (wrapNumber(playerNumber) == aiNumber) {
+      playerScore++;
 
-    document.getElementById('player-images').style.animation =
-      'roundWin 1500ms 200ms ease forwards';
-    setTimeout(function () {
-      document.getElementById('player-images').style.animation = '';
-      document.getElementById('player-score').innerHTML = playerScore;
-    }, 1800);
-  } else if (wrapNumber(aiNumber) == playerNumber) {
-    aiScore++;
+      document.getElementById('player-images').style.animation =
+        'roundWin 800ms 100ms ease forwards';
+    } else if (wrapNumber(aiNumber) == playerNumber) {
+      aiScore++;
 
-    document.getElementById('ai-images').style.animation = 'roundWinAi 1500ms 200ms ease forwards';
-    setTimeout(function () {
-      document.getElementById('ai-images').style.animation = '';
-      document.getElementById('ai-score').innerHTML = aiScore;
-    }, 1800);
-  }
+      document.getElementById('ai-images').style.animation = 'roundWinAi 800ms 100ms ease forwards';
+    } else {
+      document.getElementById('player-images').style.animation = 'draw 500ms  forwards';
+      document.getElementById('ai-images').style.animation = 'drawAi 500ms   forwards';
+    }
+  }, delayAnimation);
+  setTimeout(function () {
+    document.getElementById('player-images').style.animation = '';
+    document.getElementById('player-score').innerHTML = playerScore;
+    document.getElementById('ai-images').style.animation = '';
+    document.getElementById('ai-score').innerHTML = aiScore;
+  }, resetTime);
 
   setTimeout(function () {
     if (aiScore > 2 || playerScore > 2) {
@@ -115,7 +135,7 @@ function determineWinner(aiNumber, playerNumber) {
         document.getElementById('player-score').innerHTML = playerScore;
       }, 0);
     }
-  }, 1810);
+  }, 1100);
 }
 
 function wrapNumber(input) {
