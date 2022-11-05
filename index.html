@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="script.js"></script>
+
+    <title>RPS</title>
+  </head>
+  <body>
+    <div id="play-row">
+      <div id="ai">
+        <h1 id="ai-score">0</h1>
+        <div class="images" id="ai-images">
+          <object
+            data="fistRed.svg"
+            type="image/svg+xml"
+            width="800"
+            class="fists fist rock"
+          ></object>
+          <object data="paperRed.svg" type="image/svg+xml" width="800" class="fists paper"></object>
+          <object
+            data="scissorsRed.svg"
+            type="image/svg+xml"
+            width="800"
+            class="fists scissor"
+          ></object>
+        </div>
+      </div>
+
+      <div id="player">
+        <div class="images" id="player-images">
+          <object
+            data="fistBlue.svg"
+            type="image/svg+xml"
+            width="800"
+            class="fists fist rock"
+          ></object>
+          <object
+            data="paperBlue.svg"
+            type="image/svg+xml"
+            width="800"
+            class="fists paper"
+          ></object>
+          <object
+            data="scissorsBlue.svg"
+            type="image/svg+xml"
+            width="800"
+            class="fists scissor"
+          ></object>
+        </div>
+        <h1 id="player-score">0</h1>
+      </div>
+    </div>
+    <div id="buttonFlex">
+      <button onclick="startRound('rock')" id="rockBttn" class="button">
+        <object data="fist.svg" type="image/svg+xml" width="100"></object>
+      </button>
+      <button onclick="startRound('paper')" id="paperBttn" class="button">
+        <object data="paper.svg" type="image/svg+xml" width="100"></object>
+      </button>
+      <button onclick="startRound('scissor')" id="scissorBttn" class="button">
+        <object data="scissors.svg" type="image/svg+xml" width="100"></object>
+      </button>
+    </div>
+  </body>
+</html>
