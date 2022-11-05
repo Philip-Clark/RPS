@@ -7,8 +7,7 @@ body {
   /* background: linear-gradient(#ffdfca, #433c3c);
   b */
 
-  background-image: linear-gradient(#ffffff00, #141a1c),
-    url(`assets/backgrounds/06_RaysBG.jpg`);
+  background-image: linear-gradient(#ffffff00, #141a1c), url('assets/backgrounds/06_RaysBG.jpg');
   background-size: cover;
   background-position: bottom;
 

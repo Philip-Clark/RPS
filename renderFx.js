@@ -12,6 +12,6 @@ function updateFrame(imgId, fxFolder, frameName, frameCount, _currentFrame) {
   let nextFrame = _currentFrame + 1;
   let img = document.getElementById(imgId);
   if (nextFrame < frameCount) {
-    img.src = `../RPS/${fxFolder}/${frameName + nextFrame}.png`;
+    img.src = fxFolder + '/' + frameName + nextFrame + '.png';
   }
 }
