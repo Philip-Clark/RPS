@@ -24,7 +24,8 @@
 
     <title>RPS</title>
   </head>
-  <body>
+  <body onload="restart()">
+    <h3 id="winStreak">Win Streak: 0</h3>
     <div id="play-row">
       <div id="ai">
         <div class="images" id="ai-images">
@@ -100,6 +101,18 @@
       <button onclick="startRound('scissor')" id="scissorBttn" class="button">
         <object data="assets/scissors.svg" type="image/svg+xml" width="100"></object>
       </button>
+    </div>
+
+    <div id="endScreen">
+      <div id="win">
+        <h1>You Win!</h1>
+        <button onclick="restart()"><h2>Okay!</h2></button>
+      </div>
+
+      <div id="lose">
+        <h1>You lose...</h1>
+        <button onclick="restart()"><h2>Okay...</h2></button>
+      </div>
     </div>
   </body>
 </html>
