@@ -6,11 +6,7 @@ let aiScore = 0;
 let playerScore = 0;
 let winStreak = 0;
 let choice = '';
-const audios = [
-  new Audio('assets/sounds/punch1.mp3'),
-  new Audio('assets/sounds/punch2.mp3'),
-  new Audio('assets/sounds/punch3.mp3'),
-];
+const audios = ['punch1.mp3', 'punch2.mp3', 'punch3.mp3'];
 
 let buttons = [];
 
@@ -58,9 +54,8 @@ function startRound(_choice) {
 function animateRound() {
   let fistArray = [...document.getElementsByClassName('fists')];
 
-  document.body.style.animation = 'screenShake' + poundSpeed + 'ms linear normal forwards';
+  document.body.style.animation = 'screenShake ' + poundSpeed + 'ms ease';
 
-  let audio = audios[Math.floor(Math.random() * 3)];
   fistArray.forEach((element) => {
     element.style.animation = 'pound ' + poundSpeed + 'ms linear normal forwards';
   });
@@ -69,16 +64,18 @@ function animateRound() {
   renderFxToImg('AiDust', 200, 'assets/vfx/pound', 11, 'frame_0', poundSpeed - 50);
 
   setTimeout(() => {
-    audio.currentTime = 0;
-    audio.play();
-  }, poundSpeed - 120);
+    let audio = audios[Math.floor(Math.random() * 3)];
+    playSound(audio);
+  }, poundSpeed - 140);
 
   setTimeout(function () {
+    document.body.style.animation = '';
+
     fistArray.forEach((element) => {
       element.style.animation = '';
     });
-    document.body.style.animation = '';
     poundCount -= 1;
+
     if (poundCount > 0) {
       animateRound();
     }
@@ -109,15 +106,20 @@ function determineWinner(aiNumber, playerNumber) {
     // player's round
     if (wrapNumber(playerNumber - 1) == aiNumber) {
       playerScore++;
+      playSound('playerScore.mp3');
       playAnimation('player-images', 'roundWin forwards', attackSpeed);
     }
     // ai's round
     else if (wrapNumber(aiNumber - 1) == playerNumber) {
       aiScore++;
+      playSound('aiScore.mp3');
+
       playAnimation('ai-images', 'roundWinAi forwards', attackSpeed);
     }
     // draw
     else {
+      playSound('draw.mp3', 0.2);
+
       playAnimation('player-images', 'draw forwards', attackSpeed);
       playAnimation('ai-images', 'drawAi forwards', attackSpeed);
     }
@@ -133,10 +135,12 @@ function determineWinner(aiNumber, playerNumber) {
           document.getElementById('win').style.visibility = 'visible';
           winStreak++;
           document.getElementById('winStreak').innerHTML = 'Win Streak: ' + winStreak;
+          playSound('Win.mp3');
         } else {
           document.getElementById('lose').style.visibility = 'visible';
           winStreak = 0;
           document.getElementById('winStreak').innerHTML = 'Win Streak: ' + winStreak;
+          playSound('Lose.mp3', 0.8);
         }
       }, delayEndScreen);
     } else {
@@ -176,6 +180,13 @@ function playAnimation(id, animation, duration, reset = true) {
       style.animation = '';
     }, duration);
   }
+}
+
+function playSound(soundFile, volume = 1) {
+  let audio = new Audio('assets/sounds/' + soundFile);
+  audio.volume = volume;
+  audio.currentTime = 0;
+  audio.play();
 }
 
 function resetHands() {
