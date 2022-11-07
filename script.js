@@ -68,12 +68,16 @@ function animateRound() {
     playSound(audio);
   }, poundSpeed - 140);
 
+  setTimeout(() => {
+    fistArray.forEach((element) => {
+      console.log('test');
+
+      element.style.animation = '';
+    });
+  }, poundSpeed);
   setTimeout(function () {
     document.body.style.animation = '';
 
-    fistArray.forEach((element) => {
-      element.style.animation = '';
-    });
     poundCount -= 1;
 
     if (poundCount > 0) {
