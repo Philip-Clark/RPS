@@ -3,7 +3,7 @@ let poundCount = 3;
 const handMap = ['rock', 'paper', 'scissor'];
 
 let aiScore = 0;
-let playerScore = 0;
+let playerScore = 3;
 let winStreak = 0;
 let choice = '';
 const audios = ['punch1.mp3', 'punch2.mp3', 'punch3.mp3'];
@@ -12,11 +12,14 @@ let buttons = [];
 
 // Timing
 const timeBetweenPounds = 200;
-const resetTime = 10;
-const attackDelay = 100;
+const resetTime = 100;
+const attackDelay = 300;
 const attackSpeed = 500;
 const delayEndScreen = 400;
-const poundSpeed = 200;
+const poundSpeed = 300;
+
+backgroundHueRotate = 0;
+backgroundHueRotateSpeed = 1;
 
 function restart() {
   buttons = [...document.getElementsByClassName('button')];
@@ -26,6 +29,12 @@ function restart() {
     100,
     false
   );
+
+  setInterval(() => {
+    backgroundHueRotate += backgroundHueRotateSpeed;
+    document.getElementById('backdrop').style.filter = 'hue-rotate(' + backgroundHueRotate + 'deg)';
+  }, 100);
+
   buttons.forEach((button) => (button.disabled = false));
 
   aiScore = 0;
@@ -54,7 +63,7 @@ function startRound(_choice) {
 function animateRound() {
   let fistArray = [...document.getElementsByClassName('fists')];
 
-  document.body.style.animation = 'screenShake ' + poundSpeed + 'ms ease';
+  playAnimation('screenShake', 'screenShake ease', poundSpeed);
 
   fistArray.forEach((element) => {
     element.style.animation = 'pound ' + poundSpeed + 'ms linear normal forwards';
@@ -67,17 +76,13 @@ function animateRound() {
     let audio = audios[Math.floor(Math.random() * 3)];
     playSound(audio);
   }, poundSpeed - 140);
-
+  // reset animations
   setTimeout(() => {
     fistArray.forEach((element) => {
-      console.log('test');
-
       element.style.animation = '';
     });
   }, poundSpeed);
   setTimeout(function () {
-    document.body.style.animation = '';
-
     poundCount -= 1;
 
     if (poundCount > 0) {
@@ -111,13 +116,14 @@ function determineWinner(aiNumber, playerNumber) {
     if (wrapNumber(playerNumber - 1) == aiNumber) {
       playerScore++;
       playSound('playerScore.mp3');
+      playAnimation('player-score', 'score forwards', 200);
       playAnimation('player-images', 'roundWin forwards', attackSpeed);
     }
     // ai's round
     else if (wrapNumber(aiNumber - 1) == playerNumber) {
       aiScore++;
       playSound('aiScore.mp3');
-
+      playAnimation('ai-score', 'score forwards', 200);
       playAnimation('ai-images', 'roundWinAi forwards', attackSpeed);
     }
     // draw
@@ -127,6 +133,7 @@ function determineWinner(aiNumber, playerNumber) {
       playAnimation('player-images', 'draw forwards', attackSpeed);
       playAnimation('ai-images', 'drawAi forwards', attackSpeed);
     }
+    updateScores();
   }, attackDelay);
 
   // reset play field
@@ -210,4 +217,22 @@ function wrapNumber(input) {
   } else {
     return input;
   }
+}
+
+// debug commands
+
+function playerPoint() {
+  determineWinner(0, 1);
+}
+function aiPoint() {
+  determineWinner(1, 0);
+}
+function win() {
+  playerScore = 2;
+  determineWinner(0, 1);
+}
+
+function lose() {
+  aiScore = 2;
+  determineWinner(1, 0);
 }

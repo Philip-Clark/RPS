@@ -7,19 +7,28 @@ html {
   height: 100%;
   overflow: hidden;
 }
+
+#backdrop {
+  position: fixed;
+  width: 100vw;
+  height: 100%;
+  background-image: linear-gradient(#00000052, #141a1c),
+    linear-gradient(rgba(191, 228, 255, 0.311), rgba(205, 232, 255, 0.366)),
+    url('assets/backgrounds/06_RaysBG.jpg');
+  background-size: cover;
+  background-position: bottom;
+  background-attachment: fixed;
+  z-index: -10;
+}
 body {
   margin: 0;
   width: calc(100vw);
   height: 100%;
+}
 
-  /* background: linear-gradient(#ffdfca, #433c3c);
-  b */
-
-  background-image: linear-gradient(#ffffff00, #141a1c), url('assets/backgrounds/06_RaysBG.jpg');
-  background-size: cover;
-  background-position: bottom;
-  background-attachment: fixed;
-
+#screenShake {
+  width: calc(100vw);
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -31,9 +40,10 @@ h1,
 h2,
 h3 {
   font-size: 20vw;
-  font-family: Arial, Helvetica, sans-serif;
   font-family: 'Fredoka One', cursive;
   line-height: 0;
+  font-weight: 100;
+  text-shadow: rgba(0, 0, 0, 0.556) 0px 0px 8px;
 }
 #play-row h1 {
   width: 10vw;
@@ -42,10 +52,13 @@ h3 {
 
 h3 {
   font-size: 10vw;
+  color: #ffffff;
 }
 
-h2 {
-  font-size: 5vw;
+button {
+  font-family: 'Fredoka One', cursive;
+
+  font-size: 8vw;
   color: white;
 }
 
@@ -205,6 +218,9 @@ button object {
   h1 {
     font-size: 15rem;
   }
+  button {
+    font-size: 4vw;
+  }
 
   h3 {
     font-size: 5vw;
@@ -252,30 +268,28 @@ button object {
 
 @keyframes pound {
   0% {
-    transform: translate(1px, 0.000011px) rotate(0deg);
+    transform: translate(0%, 0%) rotate(0deg);
   }
-  0.333333% {
-    transform: rotate(-10deg);
-  }
-  3% {
-    transform: rotate(-10deg);
+
+  20% {
+    transform: rotate(-20deg);
   }
   50% {
-    transform: translate(1px, -360px) rotate(8deg);
+    transform: translate(0, -100%) rotate(8deg);
   }
   70% {
-    transform: translate(1px, -360px) rotate(8deg);
+    transform: translate(0, -100%) rotate(18deg);
     animation-timing-function: cubic-bezier(0.25, 1, 0.25, 1);
   }
   80% {
-    transform: translate(1px, -380px) rotate(17.02932deg);
+    transform: translate(0, -110%) rotate(25deg);
   }
   90% {
-    transform: translate(1px, -10px) rotate(0deg);
+    transform: translate(0, 10%) rotate(0deg);
   }
 
   100% {
-    transform: translate(1px, 0.000011px) rotate(0deg);
+    transform: translate(0, 0) rotate(0deg);
   }
 }
 
@@ -330,12 +344,12 @@ button object {
   }
 }
 
-@keyframes addPoint {
+@keyframes score {
   0% {
-    transform: scale(10);
-    opacity: 0.5;
+    transform: scale(3);
+    opacity: 0.4;
   }
-  95% {
+  80% {
     transform: scale(0.8);
     opacity: 1;
   }
