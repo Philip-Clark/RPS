@@ -6,7 +6,6 @@ let aiScore = 0;
 let playerScore = 3;
 let winStreak = 0;
 let choice = '';
-const audios = ['punch1.mp3', 'punch2.mp3', 'punch3.mp3'];
 
 let buttons = [];
 
@@ -20,6 +19,16 @@ const poundSpeed = 300;
 
 backgroundHueRotate = 0;
 backgroundHueRotateSpeed = 1;
+
+const punch1 = preloadSound('punch1.mp3');
+const punch2 = preloadSound('punch2.mp3');
+const punch3 = preloadSound('punch3.mp3');
+const aiScoreAudio = preloadSound('aiScore.mp3');
+const draw = preloadSound('draw.mp3');
+const playerScoreAudio = preloadSound('playerScore.mp3');
+const win = preloadSound('Win.mp3');
+const lose = preloadSound('Lose.mp3');
+const audios = [punch1, punch2, punch3];
 
 function restart() {
   buttons = [...document.getElementsByClassName('button')];
@@ -115,20 +124,20 @@ function determineWinner(aiNumber, playerNumber) {
     // player's round
     if (wrapNumber(playerNumber - 1) == aiNumber) {
       playerScore++;
-      playSound('playerScore.mp3');
+      playSound(playerScoreAudio);
       playAnimation('player-score', 'score forwards', 200);
       playAnimation('player-images', 'roundWin forwards', attackSpeed);
     }
     // ai's round
     else if (wrapNumber(aiNumber - 1) == playerNumber) {
       aiScore++;
-      playSound('aiScore.mp3');
+      playSound(aiScoreAudio);
       playAnimation('ai-score', 'score forwards', 200);
       playAnimation('ai-images', 'roundWinAi forwards', attackSpeed);
     }
     // draw
     else {
-      playSound('draw.mp3', 0.2);
+      playSound(draw, 0.2);
 
       playAnimation('player-images', 'draw forwards', attackSpeed);
       playAnimation('ai-images', 'drawAi forwards', attackSpeed);
@@ -146,12 +155,12 @@ function determineWinner(aiNumber, playerNumber) {
           document.getElementById('win').style.visibility = 'visible';
           winStreak++;
           document.getElementById('winStreak').innerHTML = 'Win Streak: ' + winStreak;
-          playSound('Win.mp3');
+          playSound(win);
         } else {
           document.getElementById('lose').style.visibility = 'visible';
           winStreak = 0;
           document.getElementById('winStreak').innerHTML = 'Win Streak: ' + winStreak;
-          playSound('Lose.mp3', 0.8);
+          playSound(lose, 0.8);
         }
       }, delayEndScreen);
     } else {
@@ -193,11 +202,16 @@ function playAnimation(id, animation, duration, reset = true) {
   }
 }
 
-function playSound(soundFile, volume = 1) {
-  let audio = new Audio('assets/sounds/' + soundFile);
+function playSound(audio, volume = 1) {
   audio.volume = volume;
   audio.currentTime = 0;
   audio.play();
+}
+
+function preloadSound(file) {
+  let audio = new Audio('assets/sounds/' + file);
+  audio.preload = 'preload';
+  return audio;
 }
 
 function resetHands() {
@@ -227,12 +241,12 @@ function playerPoint() {
 function aiPoint() {
   determineWinner(1, 0);
 }
-function win() {
+function makeWin() {
   playerScore = 2;
   determineWinner(0, 1);
 }
 
-function lose() {
+function makeLose() {
   aiScore = 2;
   determineWinner(1, 0);
 }
