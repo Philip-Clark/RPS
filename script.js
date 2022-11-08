@@ -17,9 +17,6 @@ const attackSpeed = 500;
 const delayEndScreen = 400;
 const poundSpeed = 300;
 
-backgroundHueRotate = 0;
-backgroundHueRotateSpeed = 1;
-
 const punch1 = preloadSound('punch1.mp3');
 const punch2 = preloadSound('punch2.mp3');
 const punch3 = preloadSound('punch3.mp3');
@@ -30,19 +27,21 @@ const win = preloadSound('Win.mp3');
 const lose = preloadSound('Lose.mp3');
 const audios = [punch1, punch2, punch3];
 
-function restart() {
+function onload() {
+  document.getElementById('rockBttn').addEventListener('click', () => startRound('rock'));
+  document.getElementById('scissorBttn').addEventListener('click', () => startRound('scissor'));
+  document.getElementById('paperBttn').addEventListener('click', () => startRound('paper'));
   buttons = [...document.getElementsByClassName('button')];
+
+  restart();
+}
+function restart() {
   playAnimation(
     'endScreen',
     'hideEndScreen cubic-bezier(0.42, -0.02, 0.82, 0.85) forwards',
     100,
     false
   );
-
-  setInterval(() => {
-    backgroundHueRotate += backgroundHueRotateSpeed;
-    document.getElementById('backdrop').style.filter = 'hue-rotate(' + backgroundHueRotate + 'deg)';
-  }, 100);
 
   buttons.forEach((button) => (button.disabled = false));
 
@@ -133,14 +132,14 @@ function determineWinner(aiNumber, playerNumber) {
       aiScore++;
       playSound(aiScoreAudio);
       playAnimation('ai-score', 'score forwards', 200);
-      playAnimation('ai-images', 'roundWinAi forwards', attackSpeed);
+      playAnimation('ai-images', 'roundWin forwards', attackSpeed);
     }
     // draw
     else {
       playSound(draw, 0.2);
 
       playAnimation('player-images', 'draw forwards', attackSpeed);
-      playAnimation('ai-images', 'drawAi forwards', attackSpeed);
+      playAnimation('ai-images', 'draw forwards', attackSpeed);
     }
     updateScores();
   }, attackDelay);

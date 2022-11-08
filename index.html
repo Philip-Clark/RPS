@@ -24,39 +24,41 @@
 
     <title>RPS</title>
   </head>
-  <body onload="restart()">
+  <body onload="onload()">
     <div id="backdrop"></div>
     <div id="screenShake">
       <h3 id="winStreak">Win Streak: 0</h3>
       <div id="play-row">
         <div id="ai">
-          <div class="images" id="ai-images">
-            <img
-              src="assets/vfx/pound/frame_010.png"
-              width="500"
-              height="500"
-              alt="effects"
-              id="AiDust"
-              class="dust"
-            />
-            <object
-              data="assets/fistRed.svg"
-              type="image/svg+xml"
-              width="800"
-              class="fists fist rock"
-            ></object>
-            <object
-              data="assets/paperRed.svg"
-              type="image/svg+xml"
-              width="800"
-              class="fists paper"
-            ></object>
-            <object
-              data="assets/scissorsRed.svg"
-              type="image/svg+xml"
-              width="800"
-              class="fists scissor"
-            ></object>
+          <div id="ai-mirror">
+            <div class="images" id="ai-images">
+              <img
+                src="assets/vfx/pound/frame_010.png"
+                width="500"
+                height="500"
+                alt="effects"
+                id="AiDust"
+                class="dust"
+              />
+              <object
+                data="assets/fistRed.svg"
+                type="image/svg+xml"
+                width="800"
+                class="fists fist rock"
+              ></object>
+              <object
+                data="assets/paperRed.svg"
+                type="image/svg+xml"
+                width="800"
+                class="fists paper"
+              ></object>
+              <object
+                data="assets/scissorsRed.svg"
+                type="image/svg+xml"
+                width="800"
+                class="fists scissor"
+              ></object>
+            </div>
           </div>
           <h1 id="ai-score">0</h1>
         </div>
@@ -94,13 +96,13 @@
         </div>
       </div>
       <div id="buttonFlex">
-        <button onclick="startRound('rock')" id="rockBttn" class="button">
+        <button id="rockBttn" class="button">
           <object data="assets/fist.svg" type="image/svg+xml" width="100"></object>
         </button>
-        <button onclick="startRound('paper')" id="paperBttn" class="button">
+        <button id="paperBttn" class="button">
           <object data="assets/paper.svg" type="image/svg+xml" width="100"></object>
         </button>
-        <button onclick="startRound('scissor')" id="scissorBttn" class="button">
+        <button id="scissorBttn" class="button">
           <object data="assets/scissors.svg" type="image/svg+xml" width="100"></object>
         </button>
       </div>
